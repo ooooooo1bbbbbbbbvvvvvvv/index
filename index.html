@@ -9,10 +9,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;overflow:hidden;background:transparent;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;user-select:none}
+/* Arabic language mode: switch to Cairo font + RTL direction */
+body.lang-ar{font-family:'Cairo','Inter',system-ui,sans-serif;direction:rtl}
+body.lang-ar .menu-row,body.lang-ar .menu-item,body.lang-ar .row,body.lang-ar .tab,body.lang-ar .submenu-item{direction:rtl;text-align:right}
+body.lang-ar .menu-title,body.lang-ar .header,body.lang-ar .menu-name{direction:rtl;text-align:right}
 #app{position:fixed;inset:0;pointer-events:none;z-index:1}
 
 :root{
@@ -1816,6 +1821,16 @@ function handleMessage(data){
       if(typeof data.scale === 'number'){
         userScale = Math.max(50, Math.min(150, data.scale));
         applyScale();
+      }
+      break;
+    case 'setLanguage':
+      {
+        var lang = (data.lang === 2) ? 'ar' : 'en';
+        if(lang === 'ar'){
+          document.body.classList.add('lang-ar');
+        } else {
+          document.body.classList.remove('lang-ar');
+        }
       }
       break;
 
